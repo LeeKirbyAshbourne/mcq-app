@@ -68,7 +68,12 @@ useEffect(() => {
       <p className="text-xl mb-3">
         Score: {score} out of {quizQuestions.length}
       </p>
-
+<button
+  onClick={() => window.location.href = "/"}
+  className="mt-6 px-6 py-3 bg-black text-white rounded-lg"
+>
+  Try Another Quiz
+</button>
       <p className="text-xl mb-3">
         {percentage}% correct
       </p>
