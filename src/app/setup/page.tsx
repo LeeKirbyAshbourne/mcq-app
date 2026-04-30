@@ -13,6 +13,7 @@ export default function SetupPage() {
   });
 
   const rows = parsed.data as any[];
+  console.log(rows.map(r => r["Combined Topics"]));
 
   const topics = Array.from(
     new Set(
