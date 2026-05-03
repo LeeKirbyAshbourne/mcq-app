@@ -20,7 +20,8 @@ export default async function QuizPage({
 
   const rows = await getQuestionsFromAirtable();
 
-  const filteredQuestions = rows.filter((row: any) => {
+  const filteredQuestions = rows
+  .filter((row: any) => {
     const value = row["Combined Topics"];
 
     const rowTopics = Array.isArray(value)
@@ -30,7 +31,8 @@ export default async function QuizPage({
       : [];
 
     return rowTopics.some((topic) => selectedTopics.includes(topic));
-  });
+  })
+  .sort(() => Math.random() - 0.5);
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-white p-8">
