@@ -4,8 +4,8 @@ import Papa from "papaparse";
 import SetupClient from "./SetupClient";
 
 export default function SetupPage() {
-  const filePath = path.join(process.cwd(), "data", "questions.csv");
-  const file = fs.readFileSync(filePath, "utf8");
+  const filePath = "AIRTABLE";
+const file = "";
 
   const parsed = Papa.parse(file, {
     header: true,
