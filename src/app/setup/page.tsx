@@ -24,12 +24,20 @@ if (!rows || !Array.isArray(rows)) {
 const topics = Array.from(
   new Set(
     rows
-      .flatMap((row) =>
-        String(row["Combined Topics"] || "")
-          .split(",")
-          .map((topic) => topic.trim())
-      )
-      .filter(Boolean)
+  .flatMap((row) => {
+    const value = row["Combined Topics"];
+
+    if (Array.isArray(value)) {
+      return value;
+    }
+
+    if (typeof value === "string") {
+      return value.split(",").map((t) => t.trim());
+    }
+
+    return [];
+  })
+  .filter(Boolean)
   )
 ).sort();
 
