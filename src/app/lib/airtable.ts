@@ -7,7 +7,7 @@ export async function getQuestionsFromAirtable() {
 
   do {
     const url = `https://api.airtable.com/v0/${baseId}/tbl7JChEOMrBx4wtC${
-      offset ? `?offset=${offset}` : ""
+     offset ? `?offset=${encodeURIComponent(offset)}` : ""
     }`;
 
     const res = await fetch(url, {
