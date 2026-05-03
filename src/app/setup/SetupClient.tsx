@@ -6,7 +6,7 @@ export default function SetupClient({ topics }: { topics: string[] }) {
   const [minutes, setMinutes] = useState(1);
   const [seconds, setSeconds] = useState(0);
   const [questionCount, setQuestionCount] = useState(10);
-  const [selectedTopics, setSelectedTopics] = useState([topics[0] || ""]);
+const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-white p-8">
