@@ -149,20 +149,24 @@ useEffect(() => {
   const { data: { user } } = await supabase.auth.getUser();
 
   if (user) {
-    await supabase.from("quiz_attempts").insert([
-      {
-        user_id: user.id,
-        score: score,
-        total_questions: quizQuestions.length,
-        percentage: Math.round((score / quizQuestions.length) * 100),
-        time_taken_seconds: timeTaken,
-      },
-    ]);
-  }
+  const { error } = await supabase.from("quiz_attempts").insert([
+    {
+      user_id: user.id,
+      score: score,
+      total_questions: quizQuestions.length,
+      percentage: Math.round((score / quizQuestions.length) * 100),
+      time_taken_seconds: timeTaken,
+    },
+  ]);
 
-  setQuizFinished(true);
+  if (error) {
+    alert(error.message);
+  }
 }
-  }}
+
+setQuizFinished(true);
+}
+}}
 >
  {currentQuestionIndex === quizQuestions.length - 1 ? "End Quiz" : "Next Question"}
   
