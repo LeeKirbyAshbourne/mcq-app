@@ -78,7 +78,7 @@ useEffect(() => {
       </p>
 
 <button
-  onClick={() => window.location.href = "/"}
+  onClick={() => window.location.href = "/setup"}
   className="mt-6 px-6 py-3 bg-black text-white rounded-lg"
 >
   Try Another Quiz
