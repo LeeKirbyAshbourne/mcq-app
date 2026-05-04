@@ -109,12 +109,11 @@ useEffect(() => {
       key={option}
       className={getButtonClass(option)}
       onClick={() => {
+  if (selectedAnswer) return;
+
   setSelectedAnswer(option);
 
-  if (
-    option === currentQuestion.Answer.trim() &&
-    !selectedAnswer
-  ) {
+  if (option === currentQuestion.Answer.trim()) {
     setScore(score + 1);
   }
 }}
