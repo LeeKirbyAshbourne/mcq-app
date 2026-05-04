@@ -3,7 +3,7 @@
 import MathText from "@/components/MathText";
 import { useEffect, useState } from "react";
 import "katex/dist/katex.min.css";
-import { InlineMath } from "react-katex";
+import { supabase } from "../lib/supabase";
 
 type Question = {
   Question: string;
@@ -138,14 +138,30 @@ useEffect(() => {
       : "bg-gray-200 text-gray-400 cursor-not-allowed"
   }`}
   disabled={!selectedAnswer}
-  onClick={() => {
+  onClick={async () => {
     if (currentQuestionIndex < quizQuestions.length - 1) {
   setCurrentQuestionIndex(currentQuestionIndex + 1);
   setSelectedAnswer(null);
 } else {
-  setFinalTimeTaken(initialTimeSeconds - timeLeft);
-    setQuizFinished(true);
-    }
+  const timeTaken = initialTimeSeconds - timeLeft;
+  setFinalTimeTaken(timeTaken);
+
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (user) {
+    await supabase.from("quiz_attempts").insert([
+      {
+        user_id: user.id,
+        score: score,
+        total_questions: quizQuestions.length,
+        percentage: Math.round((score / quizQuestions.length) * 100),
+        time_taken_seconds: timeTaken,
+      },
+    ]);
+  }
+
+  setQuizFinished(true);
+}
   }}
 >
  {currentQuestionIndex === quizQuestions.length - 1 ? "End Quiz" : "Next Question"}
